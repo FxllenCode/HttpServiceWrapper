@@ -59,14 +59,15 @@ function  module.Encode(input: table)
 	return HttpService:JSONEncode(input)
 end
 
-function module.Post(url: string, luaToEncode: table, content_type: Enum.HttpContentType?, compress: boolean?, headers: table?)
+function module.Post(url: string, json: string, content_type: Enum.HttpContentType?, compress: boolean?, headers: table?)
 	return Promise.new(function(resolve, reject)
 
 		local function request() 
-	local response = HttpService:PostAsync(url, HttpService:JSONEncode(luaToEncode), content_type or Enum.HttpContentType.ApplicationJson, compress or false, headers)
-	if response.Success then
-		resolve(HttpService:JSONDecode(response.Body), response)
+	local response = HttpService:PostAsync(url, json, content_type or Enum.HttpContentType.ApplicationJson, compress or false, headers)
+	if response then
+		resolve(HttpService:JSONDecode(response), response)
 	else 
+
 		reject("Error: Request failed with status code " .. response.StatusCode .. " and message " .. response)
 	end
 end

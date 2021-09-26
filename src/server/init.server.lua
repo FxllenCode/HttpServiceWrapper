@@ -13,7 +13,9 @@ end):catch(function(error)
     warn(error)
 end)
 
-BetterHttp.Post('https://httpbin.org/anything', {text = 'hi!'}, Enum.HttpContentType.ApplicationJson, false):andThen(function(parsedResponse, rawResponse) 
+local e = HttpService:JSONDecode({hello = "world"})
+
+BetterHttp.Post("djsdjfhsjdfsjfdshjfhs", e, Enum.HttpContentType.ApplicationJson, false):andThen(function(parsedResponse, rawResponse)
 print(parsedResponse)
 end):catch(function(error)
 	warn(error)
